@@ -6,7 +6,10 @@ defmodule Exhue.Colors do
   @doc """
   Convert XY color values to RGB
   """
-  def xy_to_color(x,y, bri) do
+  def xy_to_color(xy, bri) do
+    [x,y] = xy
+
+
     z = 1.0 - x - y
 
     yval = bri
@@ -32,14 +35,12 @@ defmodule Exhue.Colors do
     new_b = bval / maxvalue
 
 
-    final_r = if (new_r * 255) < 0, do: 255, else: new_r * 255
-    final_g = if (new_g * 255) < 0, do: 255, else: new_g * 255
-    final_b = if (new_b * 255) < 0, do: 255, else: new_b * 255
+    final_r = if (new_r * 255) < 0, do: 0, else: new_r * 255
+    final_g = if (new_g * 255) < 0, do: 0, else: new_g * 255
+    final_b = if (new_b * 255) < 0, do: 0, else: new_b * 255
 
-    output_r = if (final_r < 0), do: 255, else: final_r
-    output_g = if (final_g < 0), do: 255, else: final_g
-    output_b = if (final_b < 0), do: 255, else: final_b
 
-    %{r: round(output_r), g: round(output_g), b: round(output_b)}
+
+    %{r: round(final_r), g: round(final_g), b: round(final_b)}
   end
 end
