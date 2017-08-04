@@ -34,10 +34,10 @@ defmodule Exhue.Lights do
   @doc """
   Turn on a single light
   """
-  def turn_on(ip, token, id, transition \\ 4) do
+  def turn_on(ip, token, id, level, transition \\ 4) do
     headers = [{"Content-type", "application/json"}]
 
-    body = '{"on":true, "transitiontime":#{transition}}'
+    body = '{"on":true, "bri":#{level}, transitiontime":#{transition}}'
 
     {:ok, response} =
     Exhue.put("http://" <> ip <> @url <> "/" <> token <> "/lights/#{id}/state", body, headers, [])
