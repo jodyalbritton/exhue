@@ -81,4 +81,18 @@ defmodule Exhue.Lights do
       |> Poison.Parser.parse!()
     end
   end
+
+  def set_color(ip, token, id, color) do
+    headers = [{"Content-type", "application/json"}]
+
+    {:ok, body} = Poison.encode(%{xy: color})
+
+    {:ok, response} =
+    Exhue.put("http://" <> ip <> @url <> "/" <> token <> "/lights/#{id}/state", body, headers, [])
+
+    if {:ok, response} do
+      response.body
+      |> Poison.Parser.parse!()
+    end
+  end
 end

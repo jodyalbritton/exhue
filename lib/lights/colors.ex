@@ -43,4 +43,23 @@ defmodule Exhue.Colors do
 
     %{r: round(final_r), g: round(final_g), b: round(final_b)}
   end
+
+  def color_to_xy(rgb) do
+    [r,g,b] = rgb
+
+    red =
+    if (r > 0.04045), do: :math.pow((r + 0.055 / 1.055), 2.4 ), else:  r / 12.92
+
+    green =
+    if (g > 0.04045), do: :math.pow((g + 0.055 / 1.055), 2.4 ), else:  g / 12.92
+
+    blue =
+    if (b > 0.04045), do: :math.pow((b + 0.055 / 1.055), 2.4 ), else:  b / 12.92
+
+    x =  red * 0.664511 + green * 0.154324 + blue * 0.162028
+    y = red * 0.283881 + green * 0.668433 + blue * 0.047685
+    z = red * 0.000088 + green * 0.072310 + blue * 0.986039
+
+    if (x+y+z == 0), do: [x,y], else: [x/(x+y+z), y/(x+y+z)]
+  end
 end
