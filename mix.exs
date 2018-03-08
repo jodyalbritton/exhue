@@ -2,16 +2,18 @@ defmodule Exhue.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :exhue,
-     version: "0.1.6",
-     elixir: "~> 1.4",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     description: description(),
-     package: package(),
-     deps: deps(),
-     name: "ExHue",
-     source_url: "https://github.com/jodyalbritton/exhue"]
+    [
+      app: :exhue,
+      version: "0.1.7",
+      elixir: "~> 1.4",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      description: description(),
+      package: package(),
+      deps: deps(),
+      name: "ExHue",
+      source_url: "https://github.com/jodyalbritton/exhue"
+    ]
   end
 
   # Configuration for the OTP application
@@ -34,7 +36,7 @@ defmodule Exhue.Mixfile do
   defp deps do
     [
       {:poison, "~> 3.1"},
-      {:httpoison, "~> 1.0"},,
+      {:httpoison, "~> 1.0"},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
